@@ -205,7 +205,7 @@ public class GCCLCommands implements Listener, CommandExecutor {
 					}
 					
 					if (args[1].equalsIgnoreCase("page")) {
-						if (bm.getPageCount() < plugin.getConfig().getInt("maxPages")) {
+						if (bm.getPageCount() < plugin.getConfig().getInt("maxPages")) { // 6 pages
 							bm.addPage("§8[§6Guild§7Craft§8] §2New page!");
 							b.setItemMeta(bm);
 							player.setItemInHand(b);

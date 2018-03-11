@@ -1,0 +1,16 @@
+name: GCCL
+main: me.NinetyNine.gccl.GCCL
+version: 1.0.0
+author: NinetyNine
+description: Shows change log.
+commands:
+  changelog:
+    usage: /<command>
+    aliases: [cl]
+    description: Opens the book that shows the changes made.
+    permission: changelog.open
+  gcchangelog:
+    usage: /<command>
+    aliases: [gccl]
+    description: Adds a new change to the changelog book. 
+    permission: changelog.admin

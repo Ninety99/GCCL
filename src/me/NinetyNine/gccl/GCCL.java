@@ -10,6 +10,10 @@ public class GCCL extends JavaPlugin {
 	public void onEnable() {
 		getCommand("changelog").setExecutor(new GCCLCommands());
 		getCommand("gcchangelog").setExecutor(new GCCLCommands());
+		
+		getConfig().options().copyDefaults(true);
+		saveConfig();
+		reloadConfig();
 	}
 	
 	@Override

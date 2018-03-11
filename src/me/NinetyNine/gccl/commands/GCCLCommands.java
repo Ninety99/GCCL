@@ -1,6 +1,6 @@
 package me.NinetyNine.gccl.commands;
 
-import java.text.SimpleDateFormat;
+import java.text.SimpleDateFormat; 
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -15,11 +15,14 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.BookMeta;
 
+import me.NinetyNine.gccl.GCCL;
+ 
 public class GCCLCommands implements Listener, CommandExecutor {
 
 	//private ArrayList<String> t = new ArrayList<String>();
 	
 	public ArrayList<String> bs = new ArrayList<String>();
+	private GCCL plugin;
 
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 
@@ -170,6 +173,20 @@ public class GCCLCommands implements Listener, CommandExecutor {
 							b.setItemMeta(inh);
 							playerinv.setItemInHand(b);
 							player.sendMessage("Added!");
+						}
+					}
+					
+					if (args[1].equalsIgnoreCase("page")) {
+						if (bm.getPageCount() < plugin.getConfig().getInt("maxPages")) {
+							bm.addPage("§8[§6Guild§7Craft§8] §2New page!");
+							b.setItemMeta(bm);
+							player.setItemInHand(b);
+
+							bs.add(commandLabel);
+							player.sendMessage("§8[§6Guild§7Craft§8] §7+1 page");
+						} else {
+							player.sendMessage("§8[§6Guild§7Craft§8] §4Reached the maximum level of pages!");
+							return false;
 						}
 					}
 					

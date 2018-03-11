@@ -105,6 +105,14 @@ public class GCCLCommands implements Listener, CommandExecutor {
 						if (args.length == 1) {
 							inh.setTitle("GCChangelog");
 							bs.add(commandLabel);
+							
+							bm.setPage(1, inb1);
+							bm.setPage(2, inb2);
+							bm.setPage(3, inb3);
+							bm.setPage(4, inb4);
+							bm.setPage(5, inb5);
+							bm.setPage(6, inb6);
+							
 							b.setItemMeta(inh);
 							playerinv.setItemInHand(b);
 							player.sendMessage("Set!");
@@ -179,6 +187,9 @@ public class GCCLCommands implements Listener, CommandExecutor {
 						}
 					}
 					*/
+				} else {
+					player.sendMessage("You don't have permissions.");
+					return true;
 				}
 			}
 		} else {

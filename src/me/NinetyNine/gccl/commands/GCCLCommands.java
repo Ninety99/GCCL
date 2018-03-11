@@ -174,7 +174,7 @@ public class GCCLCommands implements Listener, CommandExecutor {
 							//inh.addPage(format.format(now) + "\n" + gcpr + message + "\n");
 							//bm.addPage(format.format(now) + "\n" + gcpr + message + "\n");
 							
-							pages.add(format.format(now) + "\n" + gcpr + message + "\n");
+							pages.add("" + "\n" + gcpr + message + "\n");
 							
 							bs.add(commandLabel);
 							bs1.put(message, message1);
@@ -194,7 +194,7 @@ public class GCCLCommands implements Listener, CommandExecutor {
 							//inh.addPage(format.format(now) + "\n" + gcpc + message + "\n");
 							//bm.addPage(format.format(now) + "\n" + gcpf + message + "\n");
 							
-							pages.add(format.format(now) + "\n" + gcpc + message + "\n");
+							pages.add("" + "\n" + gcpc + message + "\n");
 							
 							bs.add(commandLabel);
 							bs1.put(message, message1);

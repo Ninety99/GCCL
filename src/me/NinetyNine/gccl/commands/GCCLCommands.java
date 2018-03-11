@@ -1,8 +1,9 @@
 package me.NinetyNine.gccl.commands;
 
-import java.text.SimpleDateFormat; 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -22,6 +23,7 @@ public class GCCLCommands implements Listener, CommandExecutor {
 	//private ArrayList<String> t = new ArrayList<String>();
 	
 	public ArrayList<String> bs = new ArrayList<String>();
+	public HashMap<String, String> bs1 = new HashMap<>();
 	private GCCL plugin;
 
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
@@ -108,6 +110,8 @@ public class GCCLCommands implements Listener, CommandExecutor {
 						if (args.length == 1) {
 							inh.setTitle("GCChangelog");
 							bs.add(commandLabel);
+							bs1.put(message, message1);
+							bs1.put(message1, message2);
 							
 							bm.setPage(1, inb1);
 							bm.setPage(2, inb2);
@@ -140,6 +144,9 @@ public class GCCLCommands implements Listener, CommandExecutor {
 					if (args[0].equalsIgnoreCase("undo")) {
 						if (args.length == 1) {
 							bs.remove(commandLabel);
+							bs1.remove(message);
+							bs1.remove(message1);
+							bs1.remove(message2);
 							return true;
 						}
 					}
@@ -151,7 +158,9 @@ public class GCCLCommands implements Listener, CommandExecutor {
 						} else {
 							inh.addPage(format.format(now) + "\n" + gcpf + message + "\n");
 							bm.addPage(format.format(now) + "\n" + gcpf + message + "\n");
-							bs.add(commandLabel);							
+							bs.add(commandLabel);		
+							bs1.put(message, message1);
+							bs1.put(message1, message2);
 							b.setItemMeta(inh);
 							b.setItemMeta(bm);
 							playerinv.setItemInHand(b);
@@ -167,6 +176,8 @@ public class GCCLCommands implements Listener, CommandExecutor {
 							inh.addPage(format.format(now) + "\n" + gcpr + message + "\n");
 							bm.addPage(format.format(now) + "\n" + gcpf + message + "\n");
 							bs.add(commandLabel);
+							bs1.put(message, message1);
+							bs1.put(message1, message2);
 							b.setItemMeta(bm);
 							b.setItemMeta(inh);
 							playerinv.setItemInHand(b);
@@ -182,6 +193,8 @@ public class GCCLCommands implements Listener, CommandExecutor {
 							bm.addPage(format.format(now) + "\n" + gcpc + message + "\n");
 							bm.addPage(format.format(now) + "\n" + gcpf + message + "\n");
 							bs.add(commandLabel);
+							bs1.put(message, message1);
+							bs1.put(message1, message2);
 							b.setItemMeta(bm);
 							b.setItemMeta(inh);
 							playerinv.setItemInHand(b);
@@ -196,6 +209,8 @@ public class GCCLCommands implements Listener, CommandExecutor {
 							player.setItemInHand(b);
 
 							bs.add(commandLabel);
+							bs1.put(message, message1);
+							bs1.put(message1, message2);
 							player.sendMessage("§8[§6Guild§7Craft§8] §7+1 page");
 						} else {
 							player.sendMessage("§8[§6Guild§7Craft§8] §4Reached the maximum level of pages!");

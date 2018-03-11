@@ -149,8 +149,10 @@ public class GCCLCommands implements Listener, CommandExecutor {
 							return true;
 						} else {
 							inh.addPage(format.format(now) + "\n" + gcpf + message + "\n");
+							bm.addPage(format.format(now) + "\n" + gcpf + message + "\n");
 							bs.add(commandLabel);							
 							b.setItemMeta(inh);
+							b.setItemMeta(bm);
 							playerinv.setItemInHand(b);
 							player.sendMessage("Added!");
 						}
@@ -162,7 +164,9 @@ public class GCCLCommands implements Listener, CommandExecutor {
 							return true;
 						} else {
 							inh.addPage(format.format(now) + "\n" + gcpr + message + "\n");
+							bm.addPage(format.format(now) + "\n" + gcpf + message + "\n");
 							bs.add(commandLabel);
+							b.setItemMeta(bm);
 							b.setItemMeta(inh);
 							playerinv.setItemInHand(b);
 							player.sendMessage("Added!");
@@ -175,7 +179,9 @@ public class GCCLCommands implements Listener, CommandExecutor {
 							return true;
 						} else {
 							bm.addPage(format.format(now) + "\n" + gcpc + message + "\n");
+							bm.addPage(format.format(now) + "\n" + gcpf + message + "\n");
 							bs.add(commandLabel);
+							b.setItemMeta(bm);
 							b.setItemMeta(inh);
 							playerinv.setItemInHand(b);
 							player.sendMessage("Added!");

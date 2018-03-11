@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -73,22 +74,20 @@ public class GCCLCommands implements Listener, CommandExecutor {
 		String gcpr = ChatColor.RED + "✘ " + ChatColor.BLACK + "";
 		String gcpc = ChatColor.GOLD + "▶ " + ChatColor.BLACK + "";
 
-		String inb1 = bm.getPage(1);
+		/*String inb1 = bm.getPage(1);
 		String inb2 = bm.getPage(2);
 		String inb3 = bm.getPage(3);
 		String inb4 = bm.getPage(4);
 		String inb5 = bm.getPage(5);
 		String inb6 = bm.getPage(6);
+		*/
+		
+		List<String> pages = bm.getPages();
 
 		if (cmd.getName().equalsIgnoreCase("changelog")) {
 			if (player.hasPermission("changelog.open")) {
 				
-				bm.setPage(1, inb1);
-				bm.setPage(2, inb2);
-				bm.setPage(3, inb3);
-				bm.setPage(4, inb4);
-				bm.setPage(5, inb5);
-				bm.setPage(6, inb6);
+				bm.setPages(pages);
 
 				b.setItemMeta(bm);
 				playerinv.addItem(b);
@@ -113,14 +112,11 @@ public class GCCLCommands implements Listener, CommandExecutor {
 							bs1.put(message, message1);
 							bs1.put(message1, message2);
 							
-							bm.setPage(1, inb1);
-							bm.setPage(2, inb2);
-							bm.setPage(3, inb3);
-							bm.setPage(4, inb4);
-							bm.setPage(5, inb5);
-							bm.setPage(6, inb6);
+							bm.setPages(pages);
+							inh.setPages(pages);
 							
 							b.setItemMeta(inh);
+							b.setItemMeta(bm);
 							playerinv.setItemInHand(b);
 							player.sendMessage("Set!");
 							return true;
@@ -156,8 +152,10 @@ public class GCCLCommands implements Listener, CommandExecutor {
 							player.sendMessage("Usage: /gcchangelog add fixed <message>");
 							return true;
 						} else {
-							inh.addPage(format.format(now) + "\n" + gcpf + message + "\n");
-							bm.addPage(format.format(now) + "\n" + gcpf + message + "\n");
+							//inh.addPage(format.format(now) + "\n" + gcpf + message + "\n");
+							//bm.addPage(format.format(now) + "\n" + gcpf + message + "\n");
+							pages.add(format.format(now) + "\n" + gcpf + message + "\n");
+							
 							bs.add(commandLabel);		
 							bs1.put(message, message1);
 							bs1.put(message1, message2);
@@ -173,8 +171,11 @@ public class GCCLCommands implements Listener, CommandExecutor {
 							player.sendMessage("Usage: /gchangelog add removed <message>");
 							return true;
 						} else {
-							inh.addPage(format.format(now) + "\n" + gcpr + message + "\n");
-							bm.addPage(format.format(now) + "\n" + gcpf + message + "\n");
+							//inh.addPage(format.format(now) + "\n" + gcpr + message + "\n");
+							//bm.addPage(format.format(now) + "\n" + gcpr + message + "\n");
+							
+							pages.add(format.format(now) + "\n" + gcpr + message + "\n");
+							
 							bs.add(commandLabel);
 							bs1.put(message, message1);
 							bs1.put(message1, message2);
@@ -190,8 +191,11 @@ public class GCCLCommands implements Listener, CommandExecutor {
 							player.sendMessage("Usage: /gcchangelog add changed <message>");
 							return true;
 						} else {
-							bm.addPage(format.format(now) + "\n" + gcpc + message + "\n");
-							bm.addPage(format.format(now) + "\n" + gcpf + message + "\n");
+							//inh.addPage(format.format(now) + "\n" + gcpc + message + "\n");
+							//bm.addPage(format.format(now) + "\n" + gcpf + message + "\n");
+							
+							pages.add(format.format(now) + "\n" + gcpc + message + "\n");
+							
 							bs.add(commandLabel);
 							bs1.put(message, message1);
 							bs1.put(message1, message2);

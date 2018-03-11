@@ -122,6 +122,12 @@ public class GCCLCommands implements Listener, CommandExecutor {
 							return true;
 						}
 					}
+					if (args[0].equalsIgnoreCase("reload")) {
+						if (args.length == 1) {
+							this.plugin.reloadConfig();
+							return false;
+						}
+					}
 
 					if (args[0].equalsIgnoreCase("add")) {
 						if (args.length == 1) {

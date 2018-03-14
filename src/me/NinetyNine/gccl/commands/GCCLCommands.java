@@ -1,9 +1,8 @@
 package me.NinetyNine.gccl.commands;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
+import java.util.List;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -17,20 +16,18 @@ import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.BookMeta;
 
 import me.NinetyNine.gccl.GCCL;
- 
-public class GCCLCommands implements Listener, CommandExecutor {
 
-	//private ArrayList<String> t = new ArrayList<String>();
+public class GCCLCommands implements Listener, CommandExecutor {
 	
-	public ArrayList<String> bs = new ArrayList<String>();
-	public HashMap<String, String> bs1 = new HashMap<>();
+	//public ArrayList<String> bs = new ArrayList<String>();
+	//public HashMap<String, String> bs1 = new HashMap<>();
+	
+	private static GCCL plugin;
 
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 
 		Player player = (Player) sender;
 		PlayerInventory playerinv = player.getInventory();
-		
-		final GCCL plugin = new GCCL();
 
 		ItemStack b = new ItemStack(Material.WRITTEN_BOOK);
 		BookMeta bm = (BookMeta) b.getItemMeta();
@@ -44,7 +41,12 @@ public class GCCLCommands implements Listener, CommandExecutor {
 		bm.addPage(" ");
 		b.setItemMeta(bm);
 
-		BookMeta inh = (BookMeta) player.getItemInHand().getItemMeta();
+		ItemStack binh = new ItemStack(Material.WRITTEN_BOOK);
+		BookMeta inh = (BookMeta) binh.getItemMeta();
+		//inh.addPage(" ");
+		binh.setItemMeta(inh);
+		
+		BookMeta inhand = (BookMeta) player.getItemInHand().getItemMeta();
 
 		Date now = new Date();
 		SimpleDateFormat format = new SimpleDateFormat("dd MM yyyy");
@@ -74,22 +76,29 @@ public class GCCLCommands implements Listener, CommandExecutor {
 		String gcpr = ChatColor.RED + "✘ " + ChatColor.BLACK + "";
 		String gcpc = ChatColor.GOLD + "▶ " + ChatColor.BLACK + "";
 
-		String inb7 = bm.getPage(7);
-		String inb8 = bm.getPage(8);
-		String inb9 = bm.getPage(9);
+		//String inb7 = inh.getPage(7);
+		//String inb8 = inh.getPage(8);
+		//String inb9 = inh.getPage(9);
 		
-		//List<String> pages = bm.getPages();
+		List<String> pages = inh.getPages();
 
 		if (cmd.getName().equalsIgnoreCase("changelog")) {
 			if (player.hasPermission("changelog.open")) {
 				
-				//bm.setPages(pages);
-				bm.setPage(1, inb7 + inb8 + inb9);
-				bm.setPage(7, null);
-				bm.setPage(8, null);
-				bm.setPage(9, null);
+				bm.setPages(pages);
+				//bm.setPage(1, inb7 + inb8 + inb9);
+				//if (bm.getPageCount() < 10) {
+				//bm.setPage(7, "");
+				//bm.setPage(8, "");
+				//bm.setPage(9, "");
+				//bm.setPage(10, "");
+				//}
+				
+				//pages.add(inb7 + inb8 + inb9);
 
 				b.setItemMeta(bm);
+				//b.setItemMeta(inh);
+				
 				playerinv.addItem(b);
 			} else {
 				player.sendMessage("You do not have permission.");
@@ -97,7 +106,7 @@ public class GCCLCommands implements Listener, CommandExecutor {
 			}
 		}
 
-		if (player.getItemInHand().getType().equals(Material.WRITTEN_BOOK) && player.getItemInHand().hasItemMeta()) {
+		//if (player.getItemInHand().getType().equals(Material.WRITTEN_BOOK) && player.getItemInHand().hasItemMeta()) {
 			if (cmd.getName().equalsIgnoreCase("gcchangelog")) {
 				if (player.hasPermission("gcchangelog.admin")) {
 					if (args.length == 0) {
@@ -108,14 +117,13 @@ public class GCCLCommands implements Listener, CommandExecutor {
 					if (args[0].equalsIgnoreCase("set")) {
 						if (args.length == 1) {
 							inh.setTitle("GCChangelog");
-							bs.add(commandLabel);
-							bs1.put(message, message1);
-							bs1.put(message1, message2);
+							//bs.add(commandLabel);
+							//bs1.put(message, message1);
+							//bs1.put(message1, message2);
 							
-							
-							
-							b.setItemMeta(inh);
-							b.setItemMeta(bm);
+							//b.setItemMeta(inh);
+							//b.setItemMeta(bm);
+							b.setItemMeta(inhand);
 							playerinv.setItemInHand(b);
 							player.sendMessage("Set!");
 							return true;
@@ -138,10 +146,10 @@ public class GCCLCommands implements Listener, CommandExecutor {
 					
 					if (args[0].equalsIgnoreCase("undo")) {
 						if (args.length == 1) {
-							bs.remove(commandLabel);
-							bs1.remove(message);
-							bs1.remove(message1);
-							bs1.remove(message2);
+							//bs.remove(commandLabel);
+							//bs1.remove(message);
+							//bs1.remove(message1);
+							//bs1.remove(message2);
 							return true;
 						}
 					}
@@ -151,16 +159,22 @@ public class GCCLCommands implements Listener, CommandExecutor {
 							player.sendMessage("Usage: /gcchangelog add fixed <message>");
 							return true;
 						} else {
-							inh.addPage(format.format(now) + "\n" + gcpf + message + "\n");
-							bm.addPage(format.format(now) + "\n" + gcpf + message + "\n");
+							//inh.addPage(format.format(now) + "\n" + gcpf + message + "\n");
+							//bm.addPage(format.format(now) + "\n" + gcpf + message + "\n");
 							//pages.add(format.format(now) + "\n" + gcpf + message + "\n");
 							
-							bs.add(commandLabel);		
-							bs1.put(message, message1);
-							bs1.put(message1, message2);
-							b.setItemMeta(inh);
-							b.setItemMeta(bm);
-							playerinv.setItemInHand(b);
+							inhand.addPage(format.format(now) + "\n" + gcpf + message + "\n");
+							
+							//bs.add(commandLabel);		
+							//bs1.put(message, message1);
+							//bs1.put(message1, message2);
+							//b.setItemMeta(inh);
+							//b.setItemMeta(bm);
+							
+							b.setItemMeta(inhand);
+							
+							//playerinv.setItemInHand(b);
+							
 							player.sendMessage("Added!");
 						}
 					}
@@ -170,17 +184,20 @@ public class GCCLCommands implements Listener, CommandExecutor {
 							player.sendMessage("Usage: /gchangelog add removed <message>");
 							return true;
 						} else {
-							inh.addPage(" " + "\n" + gcpr + message + "\n");
-							bm.addPage(" " + "\n" + gcpr + message + "\n");
+							//inh.addPage(" " + "\n" + gcpr + message + "\n");
+							//bm.addPage(" " + "\n" + gcpr + message + "\n");
 							
 							//pages.add("" + "\n" + gcpr + message + "\n");
 							
-							bs.add(commandLabel);
-							bs1.put(message, message1);
-							bs1.put(message1, message2);
-							b.setItemMeta(bm);
-							b.setItemMeta(inh);
-							playerinv.setItemInHand(b);
+							//bs.add(commandLabel);
+							//bs1.put(message, message1);
+							//bs1.put(message1, message2);
+							//b.setItemMeta(bm);
+							//b.setItemMeta(inh);
+							//playerinv.setItemInHand(b);
+							
+							inhand.addPage(" " + "\n" + gcpr + message + "\n");
+							b.setItemMeta(inhand);
 							player.sendMessage("Added!");
 						}
 					}
@@ -190,17 +207,20 @@ public class GCCLCommands implements Listener, CommandExecutor {
 							player.sendMessage("Usage: /gcchangelog add changed <message>");
 							return true;
 						} else {
-							inh.addPage(" " + "\n" + gcpc + message + "\n");
-							bm.addPage(" " + "\n" + gcpf + message + "\n");
+							//inh.addPage(" " + "\n" + gcpc + message + "\n");
+							//bm.addPage(" " + "\n" + gcpc + message + "\n");
 							
 							//pages.add("" + "\n" + gcpc + message + "\n");
 							
-							bs.add(commandLabel);
-							bs1.put(message, message1);
-							bs1.put(message1, message2);
-							b.setItemMeta(bm);
-							b.setItemMeta(inh);
-							playerinv.setItemInHand(b);
+							//bs.add(commandLabel);
+							//bs1.put(message, message1);
+							//bs1.put(message1, message2);
+							//b.setItemMeta(bm);
+							//b.setItemMeta(inh);
+							//playerinv.setItemInHand(b);
+							
+							inhand.addPage(" " + "\n" + gcpc + message + "\n");
+							b.setItemMeta(inhand);
 							player.sendMessage("Added!");
 						}
 					}
@@ -211,9 +231,9 @@ public class GCCLCommands implements Listener, CommandExecutor {
 							b.setItemMeta(bm);
 							player.setItemInHand(b);
 
-							bs.add(commandLabel);
-							bs1.put(message, message1);
-							bs1.put(message1, message2);
+							//bs.add(commandLabel);
+							//bs1.put(message, message1);
+							//bs1.put(message1, message2);
 							player.sendMessage("§8[§6Guild§7Craft§8] §7+1 page");
 						} else {
 							player.sendMessage("§8[§6Guild§7Craft§8] §4Reached the maximum level of pages!");
@@ -240,10 +260,10 @@ public class GCCLCommands implements Listener, CommandExecutor {
 					return true;
 				}
 			}
-		} else {
-			player.sendMessage("You must hold the changelog!");
-			return true;
-		}
+		//} else {
+		//	player.sendMessage("You must hold the changelog!");
+		//	return true;
+		//}
 		return true;
 	}
 }

@@ -24,12 +24,13 @@ public class GCCLCommands implements Listener, CommandExecutor {
 	
 	public ArrayList<String> bs = new ArrayList<String>();
 	public HashMap<String, String> bs1 = new HashMap<>();
-	private GCCL plugin;
 
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 
 		Player player = (Player) sender;
 		PlayerInventory playerinv = player.getInventory();
+		
+		final GCCL plugin = new GCCL();
 
 		ItemStack b = new ItemStack(Material.WRITTEN_BOOK);
 		BookMeta bm = (BookMeta) b.getItemMeta();
@@ -123,7 +124,7 @@ public class GCCLCommands implements Listener, CommandExecutor {
 					
 					if (args[0].equalsIgnoreCase("reload")) {
 						if (args.length == 1) {
-							this.plugin.reloadConfig();
+							plugin.reloadConfig();
 							return true;
 							}
 						}
@@ -205,7 +206,7 @@ public class GCCLCommands implements Listener, CommandExecutor {
 					}
 					
 					if (args[1].equalsIgnoreCase("page")) {
-						if (bm.getPageCount() < plugin.getConfig().getInt("maxPages")) { // 6 pages
+						if (bm.getPageCount() < plugin.getConfig().getInt("maxPages")) { // gives the number from the config file
 							bm.addPage("§8[§6Guild§7Craft§8] §2New page!");
 							b.setItemMeta(bm);
 							player.setItemInHand(b);
